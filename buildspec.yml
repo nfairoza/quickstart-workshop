@@ -1,0 +1,14 @@
+
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing hugo..
+      - sudo dnf install hugo
+  pre_build:
+    commands:
+      - echo In pre_build phase..
+      - echo Current directory is $CODEBUILD_SRC_DIR
+      - ls -la
+    
