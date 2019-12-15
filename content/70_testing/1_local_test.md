@@ -36,7 +36,7 @@ From your terminal, run the following command.
 
 You should see the following output.
 
-![taskcat-install](/images/taskcat-install.gif)
+![taskcat-install](https://github.com/nfairoza/quickstart-workshop/blob/master/static/images/taskcat-install.gif)
 
 Run `taskcat --version` to check TaskCat version and confirm that TaskCat is installed correctly.
 
