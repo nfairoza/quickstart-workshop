@@ -40,6 +40,10 @@ You should see the following output.
 
 Run `taskcat --version` to check TaskCat version and confirm that TaskCat is installed correctly.
 
+Latest taskcat is `version 0.9.8`
+
+![taskcat-version.png](../../static/images/taskcat-version.png)
+
 ### Prepare tests
 
 TaskCat requires two files at **ci/** folder in the project directory, to run the tests. Following are the files:
@@ -96,6 +100,18 @@ As you can see above, there are few parameters like *KeyPairName* and *EmailAddr
 *~/.aws/taskcat_global_override.json*
 - **Project override file** - Place this in the **ci/** directory within your project directory 
 *<project_name>/ci/taskcat_project_override.json*
+
+a parameter override file can be created in `<PROJECT_ROOT>/.taskcat_overrides.yml`.
+Parameter Keys/Values specified in this file take precedence over values defined in all
+other configuration files. For example:
+
+```yaml
+KeyPair: my-overriden-keypair
+VpcId: vpc-1234abcd
+```
+
+> Warning: it is recommended to add `.taskcat_overrides.yml` to `.gitignore` to ensure
+>it is not accidentally checked into source control
 
 TaskCat read parameters in the following order:
 
@@ -194,10 +210,16 @@ Now that we have input parameter files and taskcat configuration file created, l
 
 Run the following command in your terminal window:
 
-`cd ~/environment`
+v0.9.x you can cd into the project root for a very simple cli experience:
+```bash
+cd ./quickstart-aws-vpc
+taskcat test run
+```
 
-`taskcat -c qs-workshop/ci/taskcat.yml &> screen-logs.txt &`
-
+or run it from anywhere by providing the path to the project root
+```bash
+taskcat test run -p ./quickstart-aws-vpc
+```
 This will run TaskCat in the background and send logs/errors to *screen-logs.txt* file. TaskCat performs series of actions as part of executing a test, such as template validation, parameter validation, staging content into S3 bucket, and launching CloudFormation stack. It launches the stack creation in all the defined regions, for each test, simultaneously. And regularly polls the CloudFormation stack status to check if the stack creation is finished. How much time TaskCat takes to finish the testing, depends on how many tests you have defined in your TaskCat configuration file and how long each stack creation and deletion takes.
 
 You can *tail* the logs by running following command.
